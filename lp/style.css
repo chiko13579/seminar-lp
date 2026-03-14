@@ -154,45 +154,50 @@ body {
 }
 
 /* ===========================
-   ボトム・共通セクション（01, 03など）
+   レイアウト共通クラス
 =========================== */
-.bottom-section {
-  background: #fff;
+.l-section {
   padding: 100px 20px;
   position: relative;
   overflow: hidden;
+  background: #fff;
 }
 
-.bottom-inner {
+.l-inner {
   max-width: 1180px;
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 1; /* 10 -> 1 に戻して重なりを防ぐ */
 }
 
-.section-01::before {
+/* 共通背景装飾ベース */
+.l-section::before {
   content: '';
   position: absolute;
   top: 0;
-  right: 0;
-  width: 45%;
-  height: 100%;
-  background: url('../img/use_img/back_01_small.jpg') top right / contain no-repeat;
   pointer-events: none;
   z-index: 0;
 }
 
 /* ===========================
-   ブルー背景セクション（02など）
+   各セクション固有設定
 =========================== */
-.bg-blue-section {
-  background: url('../img/use_img/back_04.jpg') center center / cover no-repeat;
-  padding: 100px 20px;
+
+/* セクション01 */
+.section-01::before {
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background: url('../img/use_img/back_01_small.jpg') top right / contain no-repeat;
 }
 
-.bg-blue-inner {
+/* ブルー背景（02, 04） */
+.is-blue {
+  background: url('../img/use_img/back_04.jpg') center center / cover no-repeat;
+}
+
+.is-blue .l-inner {
   max-width: 1300px;
-  margin: 0 auto;
 }
 
 .bg-white-card {
@@ -202,6 +207,7 @@ body {
   overflow: hidden;
 }
 
+/* カード内装飾 */
 .bg-white-card::before {
   content: '';
   position: absolute;
@@ -216,13 +222,96 @@ body {
   z-index: 0;
 }
 
-.bg-white-card>* {
-  position: relative;
-  z-index: 1;
+/* セクション04 固有装飾（セクション背景） */
+.section-04::before {
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background: url('../img/use_img/back_04_small.jpg') top right / contain no-repeat;
+  opacity: 0.15; /* 重なりを見やすくするため透明度を設定 */
 }
 
 .bg-white-card>* {
   position: relative;
+  z-index: 2;
+}
+
+/* セクション03 固有レイアウト */
+.section-03 .content-block {
+  align-items: center;
+}
+
+.content-03-bottom {
+  display: flex;
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.content-03-bottom-left {
+  width: 280px;
+  flex: 0 0 280px;
+}
+
+.content-03-bottom-right {
+  flex: 1;
+}
+
+.content-03-bottom img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+/* セクション04 固有レイアウト */
+.content-block-vertical {
+  display: flex !important; /* 他のflex設定を確実に上書き */
+  flex-direction: column !important;
+  gap: 40px;
+}
+
+.content-body-full {
+  width: 100% !important;
+}
+
+.content-04-bottom {
+  display: flex;
+  gap: 24px;
+}
+
+.content-04-bottom-box {
+  flex: 1;
+}
+
+.content-04-bottom .content-img-placeholder,
+.content-04-bottom img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+
+/* 価格セクション */
+.is-price {
+  background: url('../img/use_img/back_price.jpg') center center / cover no-repeat;
+}
+
+.is-price .l-inner {
+  max-width: 1040px;
+}
+
+.schedule-bg-text {
+  position: absolute;
+  top: 0; /* 20px -> 0 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 100px;
+  font-weight: 700;
+  color: #f6f6f6; /* より薄いグレーに調整 #f2 -> #f6 */
+  white-space: nowrap;
+  letter-spacing: 0.1em;
   z-index: 1;
 }
 
@@ -346,104 +435,11 @@ body {
 /* ===========================
    03セクション（TOHOキャラクター）
 =========================== */
-.section-03 .content-block {
-  align-items: center;
-  /* 右側の画像を上下中央に */
-}
-
-.content-03-bottom {
-  display: flex;
-  gap: 48px;
-  margin-top: 48px;
-}
-
-.content-03-bottom-left {
-  width: 280px;
-  flex: 0 0 280px;
-}
-
-.content-03-bottom-right {
-  flex: 1;
-}
-
-.content-03-bottom img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-}
-
-/* ===========================
-   04セクション（インビザライン）
-=========================== */
-.section-04 .bg-white-card::before {
-  background: url('../img/use_img/back_04_small.jpg') top right / contain no-repeat;
-  opacity: 0.25;
-}
-
-.content-block-vertical {
-  display: block;
-}
-
-.content-body-full {
-  width: 100%;
-}
-
-.content-04-bottom {
-  display: flex;
-  gap: 24px;
-}
-
-.content-04-bottom-box {
-  flex: 1;
-}
-
-.content-04-bottom .content-img-placeholder,
-.content-04-bottom img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
-}
-
-/* ===========================
-   05：スケジュールと参加費用セクション
-=========================== */
-.schedule-section {
-  padding: 100px 20px;
-  background: url('../img/use_img/back_price.jpg') center center / cover no-repeat;
-  position: relative;
-  overflow: hidden;
-}
-
-.schedule-bg-text {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Shippori Mincho B1', serif;
-  font-size: 100px;
-  font-weight: 700;
-  color: #f2f2f2;
-  white-space: nowrap;
-  letter-spacing: 0.1em;
-  z-index: 1;
-}
-
-.schedule-inner {
-  max-width: 1040px;
-  /* 画像のバランスに合わせて少し絞る */
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
+/* セクションタイトル */
 .section-main-title {
   text-align: center;
   font-family: 'Shippori Mincho B1', serif;
   font-size: 44px;
-  /* 38px -> 44px */
   color: #1a1a1a;
   margin-bottom: 60px;
 }
@@ -682,58 +678,189 @@ body {
 /* ===========================
    レスポンシブ対応
 =========================== */
-@media (max-width: 768px) {
-  .hero-inner {
-    padding: 24px 16px 40px;
+
+/* タブレット・iPad (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .l-inner {
+    width: 95%;
   }
 
-  .main-visual-box {
-    max-width: 100%;
+  .main-visual {
+    width: 90%;
   }
 
-  .speakers {
-    gap: 8px;
+  .content-block {
+    gap: 32px;
   }
 
-  .speaker-img-wrap {
-    width: 88px;
+  .schedule-content {
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .placeholder-img {
-    width: 88px;
-    height: 104px;
-  }
-
-  .speaker-img-wrap img {
-    height: 104px;
-  }
-
-  .speaker-name {
-    font-size: 9px;
-    padding: 4px 4px;
-  }
-
-  .cta-box {
-    max-width: 100%;
-    height: 60px;
+  .schedule-left,
+  .price-right {
+    width: 100%;
+    max-width: 600px;
   }
 }
 
-@media (max-width: 480px) {
-  .speaker-img-wrap {
-    width: 72px;
+/* スマートフォン・タブレット (max-width: 768px) */
+@media (max-width: 768px) {
+  .l-section {
+    padding: 60px 20px;
   }
 
-  .placeholder-img {
-    width: 72px;
-    height: 88px;
+  .hero-section {
+    padding: 60px 0;
+    background-size: cover;
+  }
+
+  .main-visual {
+    width: 95%;
+    margin-bottom: 40px;
+  }
+
+  .speakers-grid {
+    gap: 12px;
+  }
+
+  .speaker-img-wrap {
+    width: 100px;
   }
 
   .speaker-img-wrap img {
-    height: 88px;
+    height: 120px;
   }
 
   .speaker-name {
-    font-size: 8px;
+    font-size: 10px;
+  }
+
+  .cta-section {
+    padding: 40px 20px;
+  }
+
+  .cta-img {
+    width: 100%;
+    max-width: 430px;
+  }
+
+  .content-block {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .content-img {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .content-body {
+    width: 100%;
+  }
+
+  .content-title {
+    font-size: 28px;
+  }
+
+  .bg-white-card {
+    padding: 40px 30px;
+  }
+
+  .section-main-title {
+    font-size: 32px;
+  }
+
+  .schedule-bg-text {
+    font-size: 60px;
+    top: 10px;
+  }
+
+  .timeline-date {
+    font-size: 28px;
+  }
+
+  .timeline-title {
+    font-size: 22px;
+  }
+
+  .venue-flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .venue-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .price-value {
+    font-size: 24px;
+  }
+
+  .content-03-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .content-03-bottom-left {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* スマートフォン (max-width: 480px) */
+@media (max-width: 480px) {
+  .l-section {
+    padding: 40px 20px;
+  }
+
+  .hero-section {
+    padding: 40px 0;
+  }
+
+  .speaker-img-wrap {
+    width: 80px;
+  }
+
+  .speaker-img-wrap img {
+    height: 100px;
+  }
+
+  .content-title {
+    font-size: 24px;
+  }
+
+  .content-number {
+    font-size: 60px;
+  }
+
+  .section-main-title {
+    font-size: 26px;
+  }
+
+  .price-group {
+    padding: 16px;
+  }
+
+  .price-label {
+    font-size: 18px;
+  }
+
+  .price-value {
+    font-size: 20px;
+  }
+
+  .discount-value strong {
+    font-size: 24px;
+  }
+
+  .content-04-bottom {
+    flex-direction: column;
+    gap: 16px;
   }
 }
