@@ -21,7 +21,7 @@ body {
 =========================== */
 .hero {
   position: relative;
-  background: url('../img/use_img/back_top.jpg') center center / cover no-repeat;
+  background: url('img/use_img/back_top.jpg') center center / cover no-repeat;
   overflow: hidden;
 }
 
@@ -167,7 +167,8 @@ body {
   max-width: 1180px;
   margin: 0 auto;
   position: relative;
-  z-index: 1; /* 10 -> 1 に戻して重なりを防ぐ */
+  z-index: 1;
+  /* 10 -> 1 に戻して重なりを防ぐ */
 }
 
 /* 共通背景装飾ベース */
@@ -188,12 +189,12 @@ body {
   right: 0;
   width: 45%;
   height: 100%;
-  background: url('../img/use_img/back_01_small.jpg') top right / contain no-repeat;
+  background: url('img/use_img/back_01_small.jpg') top right / contain no-repeat;
 }
 
 /* ブルー背景（02, 04） */
 .is-blue {
-  background: url('../img/use_img/back_04.jpg') center center / cover no-repeat;
+  background: url('img/use_img/back_04.jpg') center center / cover no-repeat;
 }
 
 .is-blue .l-inner {
@@ -208,7 +209,7 @@ body {
 }
 
 /* カード内装飾 */
-.bg-white-card::before {
+.section-02 .bg-white-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -216,19 +217,10 @@ body {
   transform: translateX(-50%);
   width: 50%;
   height: 100%;
-  background: url('../img/use_img/back_02_small.jpg') top center / contain no-repeat;
+  background: url('img/use_img/back_02_small.jpg') top center / contain no-repeat;
   opacity: 0.25;
   pointer-events: none;
   z-index: 0;
-}
-
-/* セクション04 固有装飾（セクション背景） */
-.section-04::before {
-  right: 0;
-  width: 45%;
-  height: 100%;
-  background: url('../img/use_img/back_04_small.jpg') top right / contain no-repeat;
-  opacity: 0.15; /* 重なりを見やすくするため透明度を設定 */
 }
 
 .bg-white-card>* {
@@ -265,7 +257,8 @@ body {
 
 /* セクション04 固有レイアウト */
 .content-block-vertical {
-  display: flex !important; /* 他のflex設定を確実に上書き */
+  display: flex !important;
+  /* 他のflex設定を確実に上書き */
   flex-direction: column !important;
   gap: 40px;
 }
@@ -274,27 +267,47 @@ body {
   width: 100% !important;
 }
 
+/* セクション04 カード内背景装飾 */
+.section-04 .bg-white-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 100%;
+  background: url('img/use_img/back_04_small.jpg') top right / contain no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .content-04-bottom {
   display: flex;
   gap: 24px;
 }
 
-.content-04-bottom-box {
-  flex: 1;
-}
-
 .content-04-bottom .content-img-placeholder,
 .content-04-bottom img {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
+}
+
+/* カード内装飾 */
+.section-02 .bg-white-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 100%;
+  background: url('img/use_img/back_02_small.jpg') top center / contain no-repeat;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* 価格セクション */
 .is-price {
-  background: url('../img/use_img/back_price.jpg') center center / cover no-repeat;
+  background: url('img/use_img/back_price.jpg') center center / cover no-repeat;
 }
 
 .is-price .l-inner {
@@ -302,17 +315,12 @@ body {
 }
 
 .schedule-bg-text {
-  position: absolute;
-  top: 0; /* 20px -> 0 */
-  left: 50%;
-  transform: translateX(-50%);
   font-family: 'Shippori Mincho B1', serif;
-  font-size: 100px;
+  font-size: 90px;
   font-weight: 700;
-  color: #f6f6f6; /* より薄いグレーに調整 #f2 -> #f6 */
+  color: #f6f6f6;
   white-space: nowrap;
   letter-spacing: 0.1em;
-  z-index: 1;
 }
 
 /* ===========================
@@ -437,6 +445,7 @@ body {
 =========================== */
 /* セクションタイトル */
 .section-main-title {
+  margin: -70px 0;
   text-align: center;
   font-family: 'Shippori Mincho B1', serif;
   font-size: 44px;
@@ -726,18 +735,6 @@ body {
     gap: 12px;
   }
 
-  .speaker-img-wrap {
-    width: 100px;
-  }
-
-  .speaker-img-wrap img {
-    height: 120px;
-  }
-
-  .speaker-name {
-    font-size: 10px;
-  }
-
   .cta-section {
     padding: 40px 20px;
   }
@@ -748,7 +745,7 @@ body {
   }
 
   .content-block {
-    flex-direction: column;
+    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
     align-items: center;
     gap: 40px;
   }
@@ -760,6 +757,21 @@ body {
 
   .content-body {
     width: 100%;
+  }
+
+  .content-heading {
+    flex-direction: column;
+    align-items: center;
+    /* flex-start -> center */
+    text-align: center;
+    /* タイトルの改行時も中央に */
+    gap: 8px;
+    padding-bottom: 20px;
+  }
+
+  .content-number {
+    font-size: 80px;
+    line-height: 1;
   }
 
   .content-title {
@@ -802,7 +814,7 @@ body {
   }
 
   .content-03-bottom {
-    flex-direction: column;
+    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
     align-items: center;
     gap: 24px;
   }
@@ -821,14 +833,6 @@ body {
 
   .hero-section {
     padding: 40px 0;
-  }
-
-  .speaker-img-wrap {
-    width: 80px;
-  }
-
-  .speaker-img-wrap img {
-    height: 100px;
   }
 
   .content-title {
@@ -860,7 +864,7 @@ body {
   }
 
   .content-04-bottom {
-    flex-direction: column;
+    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
     gap: 16px;
   }
 }
