@@ -1,6 +1,19 @@
 /* ===========================
    リセット & ベーススタイル
 =========================== */
+/* ===========================
+   ユーティリティ
+=========================== */
+.u-sp-br {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .u-sp-br {
+    display: block;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -21,7 +34,7 @@ body {
 =========================== */
 .hero {
   position: relative;
-  background: url('img/use_img/back_top.jpg') center center / cover no-repeat;
+  background: url('img/back_top.jpg') center center / cover no-repeat;
   overflow: hidden;
 }
 
@@ -98,22 +111,25 @@ body {
   gap: 12px;
   flex-wrap: wrap;
   padding-top: 8px;
+  margin-bottom: 20px;
 }
 
 .speaker-card {
   flex: 0 0 auto;
+  width: 180px;
 }
 
 .speaker-img-wrap {
   position: relative;
-  width: 152px;
+  width: 160px;
   overflow: hidden;
   border-radius: 4px;
   display: block;
+  margin: auto;
 }
 
 .speaker-img-wrap img {
-  width: 152px;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -189,12 +205,12 @@ body {
   right: 0;
   width: 45%;
   height: 100%;
-  background: url('img/use_img/back_01_small.jpg') top right / contain no-repeat;
+  background: url('img/back_01_small.jpg') top right / contain no-repeat;
 }
 
 /* ブルー背景（02, 04） */
 .is-blue {
-  background: url('img/use_img/back_04.jpg') center center / cover no-repeat;
+  background: url('img/back_04.jpg') center center / cover no-repeat;
 }
 
 .is-blue .l-inner {
@@ -208,21 +224,6 @@ body {
   overflow: hidden;
 }
 
-/* カード内装飾 */
-.section-02 .bg-white-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 100%;
-  background: url('img/use_img/back_02_small.jpg') top center / contain no-repeat;
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .bg-white-card>* {
   position: relative;
   z-index: 2;
@@ -231,6 +232,11 @@ body {
 /* セクション03 固有レイアウト */
 .section-03 .content-block {
   align-items: center;
+}
+
+.content-img-03-top {
+  width: 100%;
+  max-width: 800px;
 }
 
 .content-03-bottom {
@@ -273,9 +279,9 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  width: 35%;
+  width: 30%;
   height: 100%;
-  background: url('img/use_img/back_04_small.jpg') top right / contain no-repeat;
+  background: url('img/back_04_small.jpg') top right / contain no-repeat;
   pointer-events: none;
   z-index: 0;
 }
@@ -295,19 +301,17 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
+  right: 30%;
+  width: 30%;
   height: 100%;
-  background: url('img/use_img/back_02_small.jpg') top center / contain no-repeat;
-  opacity: 0.25;
+  background: url('img/back_02_small.jpg') top center / contain no-repeat;
   pointer-events: none;
   z-index: 0;
 }
 
 /* 価格セクション */
 .is-price {
-  background: url('img/use_img/back_price.jpg') center center / cover no-repeat;
+  background: url('img/back_price.jpg') center center / cover no-repeat;
 }
 
 .is-price .l-inner {
@@ -435,7 +439,6 @@ body {
 .content-quote p {
   font-family: 'Shippori Mincho B1', serif;
   font-size: 18px;
-  line-height: 1.8;
   color: #1a1a1a;
 }
 
@@ -691,7 +694,7 @@ body {
 /* タブレット・iPad (max-width: 1024px) */
 @media (max-width: 1024px) {
   .l-inner {
-    width: 95%;
+    width: 100%;
   }
 
   .main-visual {
@@ -745,9 +748,39 @@ body {
   }
 
   .content-block {
-    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
+    flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 0px;
+  }
+
+  /* セクション03のみ： タイトル -> 画像 -> 本文 の順に入れ替え */
+  .section-03 .content-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-03 .content-body {
+    display: contents;
+    /* 内部のHeadingとTextをBlock直下のFlexアイテムとして扱う */
+  }
+
+  .section-03 .content-heading {
+    order: 1;
+    margin-bottom: 24px;
+  }
+
+  .section-03 .content-img-03-top {
+    order: 2;
+    margin-bottom: 32px;
+  }
+
+  .section-03 .content-text {
+    order: 3;
+  }
+
+  /* Section 01はDOMがImg->Textなので、スマホでテキストを上にするため反転 */
+  .section-01 .content-block {
+    flex-direction: column-reverse;
   }
 
   .content-img {
@@ -814,7 +847,8 @@ body {
   }
 
   .content-03-bottom {
-    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
+    flex-direction: column;
+    /* PCと同じ順序（Text->Img）で表示 */
     align-items: center;
     gap: 24px;
   }
@@ -828,23 +862,36 @@ body {
 /* スマートフォン (max-width: 480px) */
 @media (max-width: 480px) {
   .l-section {
-    padding: 40px 20px;
+    padding: 50px 15px;
+  }
+
+  .bg-white-card {
+    padding: 20px 15px;
   }
 
   .hero-section {
     padding: 40px 0;
   }
 
+  /* タイトル */
   .content-title {
-    font-size: 24px;
-  }
-
-  .content-number {
-    font-size: 60px;
+    font-size: 26px;
   }
 
   .section-main-title {
     font-size: 26px;
+  }
+
+  .subs-title {
+    font-size: 24px;
+  }
+
+  .timeline-title {
+    font-size: 20px;
+  }
+
+  .content-number {
+    font-size: 60px;
   }
 
   .price-group {
@@ -864,7 +911,108 @@ body {
   }
 
   .content-04-bottom {
-    flex-direction: column-reverse; /* 写真とテキストを入れ替え */
+    flex-direction: column;
+    /* DOM順（Text->Img）で表示 */
     gap: 16px;
+  }
+
+  .speaker-img-wrap {
+    width: 100px;
+  }
+
+  .speaker-card {
+    width: 160px;
+  }
+
+  /* TOP */
+  .hero-inner {
+    padding: 60px 5px 10px;
+  }
+
+  .main-visual {
+    width: 100%;
+    margin-bottom: 0px;
+  }
+
+  .cta-section {
+    padding: 20px;
+  }
+
+  /* セクション01 */
+  .section-01::before {
+    width: 65%;
+  }
+
+  /* セクション02 */
+  .section-02 .bg-white-card::before {
+    top: 0;
+    right: 0;
+    width: 50%;
+    background: url('img/back_02_small.jpg') top center / contain no-repeat;
+  }
+
+  .content-03-bottom {
+    margin-top: 0px;
+  }
+
+  .content-03-bottom-left {
+    width: 200px;
+    height: auto;
+    flex: 0 0 200px;
+  }
+
+  .section-04 .bg-white-card::before {
+    width: 50%;
+  }
+
+  /* 料金 */
+  .discount-label {
+    font-size: 15px;
+  }
+
+  .discount-value {
+    font-size: 20px;
+  }
+}
+
+/* ===========================
+   講師情報
+=========================== */
+.speaker-info {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.speaker-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.speaker-title {
+  font-size: 15px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===========================
+   フッター
+=========================== */
+.l-footer {
+  background-color: #06133a;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .speaker-title {
+    font-size: 13px;
   }
 }
