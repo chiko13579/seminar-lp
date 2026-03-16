@@ -718,10 +718,14 @@ body {
   }
 }
 
-/* スマートフォン・タブレット (max-width: 768px) */
-@media (max-width: 768px) {
+/* スマートフォン・タブレット (max-width: 900px) */
+@media (max-width: 900px) {
   .l-section {
     padding: 60px 20px;
+  }
+
+  .hero {
+    background-image: url('img/back_top_sp.jpg');
   }
 
   .hero-section {
