@@ -726,6 +726,7 @@ body {
 
   .hero {
     background-image: url('img/back_top_sp.jpg');
+    background-position: top center;
   }
 
   .hero-section {
